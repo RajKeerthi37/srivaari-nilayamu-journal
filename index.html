@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f2">
+    <meta name="description" content="A private, personal journal for tracking every detail of building your home.">
+    <title>Our Home Journal</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main id="login-screen" class="login-screen">
+      <section class="login-card" aria-labelledby="login-title">
+        <a class="brand brand-login" href="#" aria-label="Our Home Journal">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M4.5 14.2 16 5l11.5 9.2v12.3a1 1 0 0 1-1 1h-21a1 1 0 0 1-1-1V14.2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M12 27.5v-8a4 4 0 0 1 8 0v8M10 13.5h.01M22 13.5h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="brand-copy"><strong>our home</strong><small>THE BUILD JOURNAL</small></span>
+        </a>
+        <div class="login-picture" aria-hidden="true">
+          <span class="picture-sun"></span>
+          <svg class="house-drawing" viewBox="0 0 420 255" fill="none">
+            <path d="M69 121.5 208 32l140 89.5v105H69v-105Z" fill="#EEE8DC" stroke="#526454" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="m47 126 161-106 161 106" stroke="#526454" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M173 226v-68h70v68" fill="#D6B395" stroke="#526454" stroke-width="2.5"/>
+            <path d="M108 151h39v44h-39zM271 151h39v44h-39z" fill="#D9E5E3" stroke="#526454" stroke-width="2.5"/>
+            <path d="M128 151v44m163-44v44m-183-22h39m124 0h39" stroke="#526454" stroke-width="1.5"/>
+            <path d="M40 226h340M53 236h312" stroke="#A49C88" stroke-width="2" stroke-linecap="round"/>
+            <path d="M54 227c8-13 9-26 8-41m0 41c-8-7-12-15-13-24m15 17c7-8 9-14 8-21m284 28c-7-14-7-26-5-40m0 40c8-7 11-15 12-24m-15 16c-6-8-8-14-7-21" stroke="#73856C" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="login-copy">
+          <span class="eyebrow">EVERY LITTLE DETAIL, IN ITS PLACE</span>
+          <h1 id="login-title">A home is built<br>one day at a time.</h1>
+          <p>Keep the plans, people, costs and little decisions behind your home together in one place.</p>
+        </div>
+        <form id="login-form" class="login-form">
+          <label for="username">Username</label>
+          <input id="username" name="username" autocomplete="username" placeholder="Your username" required>
+          <label for="password">Password</label>
+          <div class="password-wrap">
+            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Your password" required>
+            <button id="toggle-password" class="password-toggle" type="button" aria-label="Show password">Show</button>
+          </div>
+          <p id="login-error" class="form-error" role="alert" hidden>That username and password don't match. Please try again.</p>
+          <button class="button button-primary login-submit" type="submit">Open your journal <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="login-footnote"><span class="lock-dot" aria-hidden="true"></span>Your journal stays in this browser on this device.</p>
+      </section>
+      <p class="login-aside">A personal record of the place you're making home.</p>
+    </main>
+
+    <div id="app-screen" class="app-screen" hidden>
+      <aside class="sidebar">
+        <a class="brand" href="#" aria-label="Our Home Journal home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M4.5 14.2 16 5l11.5 9.2v12.3a1 1 0 0 1-1 1h-21a1 1 0 0 1-1-1V14.2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M12 27.5v-8a4 4 0 0 1 8 0v8M10 13.5h.01M22 13.5h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="brand-copy"><strong>our home</strong><small>THE BUILD JOURNAL</small></span>
+        </a>
+        <div class="sidebar-project">
+          <span class="project-avatar" aria-hidden="true">S</span>
+          <span><strong>Srivaari Nilayamu</strong><small>OUR HOME PROJECT</small></span>
+          <span class="project-menu" aria-hidden="true">···</span>
+        </div>
+        <nav class="side-nav" aria-label="Journal navigation">
+          <span class="nav-caption">YOUR PROJECT</span>
+          <button class="nav-link active" type="button" data-nav="journal"><span class="nav-icon" aria-hidden="true">▤</span>Journal</button>
+          <button class="nav-link" type="button" data-nav="costs"><span class="nav-icon" aria-hidden="true">₹</span>Cost tracker</button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-note">
+            <span class="note-spark" aria-hidden="true">✳</span>
+            <p>Big things are built from little things, remembered.</p>
+          </div>
+          <button id="logout-button" class="nav-link logout-link" type="button"><span class="nav-icon" aria-hidden="true">↪</span>Lock journal</button>
+          <span class="sidebar-version">YOUR HOME, YOUR STORY · 01</span>
+        </div>
+      </aside>
+
+      <div class="main-shell">
+        <header class="topbar">
+          <div class="breadcrumb"><span>MY PROJECTS</span><span class="crumb-divider">/</span><strong>SRIVAARI NILAYAMU</strong></div>
+          <div class="topbar-actions">
+            <span class="saved-indicator"><span class="saved-dot"></span> Saved on this device</span>
+            <button id="top-add-button" class="button button-primary top-add" type="button"><span aria-hidden="true">＋</span> Add an entry</button>
+            <button id="mobile-logout" class="icon-button mobile-logout" type="button" aria-label="Lock journal">↪</button>
+          </div>
+        </header>
+
+        <main class="content">
+          <section class="welcome-row">
+            <div>
+              <span class="eyebrow">THE MAKING OF YOUR HOME</span>
+              <h1>Your home, <span>in the making.</span></h1>
+              <p class="welcome-subtitle">A little record of every decision, detail and day along the way.</p>
+            </div>
+            <div class="welcome-date"><span class="date-sun" aria-hidden="true">☼</span><span id="today-date"></span></div>
+          </section>
+
+          <section class="summary-grid" aria-label="Project overview">
+            <article class="summary-card cost-card">
+              <div class="summary-top"><span class="summary-label">SPENT SO FAR</span><span class="summary-icon rupee-icon" aria-hidden="true">₹</span></div>
+              <strong id="summary-spent" class="summary-value">₹0</strong>
+              <span id="summary-spent-note" class="summary-note">Across this month</span>
+            </article>
+            <article class="summary-card">
+              <div class="summary-top"><span class="summary-label">JOURNAL ENTRIES</span><span class="summary-icon" aria-hidden="true">▤</span></div>
+              <strong id="summary-count" class="summary-value">0</strong>
+              <span id="summary-count-note" class="summary-note">Days captured this month</span>
+            </article>
+            <article class="summary-card">
+              <div class="summary-top"><span class="summary-label">IN PROGRESS</span><span class="summary-icon progress-icon" aria-hidden="true">◷</span></div>
+              <strong id="summary-progress" class="summary-value">0</strong>
+              <span class="summary-note">Items still underway</span>
+            </article>
+            <article class="summary-card project-card">
+              <div class="summary-top"><span class="summary-label">THIS CHAPTER</span><span class="summary-icon chapter-icon" aria-hidden="true">✳</span></div>
+              <strong id="summary-month" class="summary-value">This month</strong>
+              <span id="summary-month-note" class="summary-note">Your project journal</span>
+            </article>
+          </section>
+
+          <section class="journal-panel">
+            <div class="journal-heading">
+              <div>
+                <span class="eyebrow">THE STORY SO FAR</span>
+                <h2>Your journal <span id="entry-count-badge" class="entry-count-badge">0</span></h2>
+              </div>
+              <button id="desktop-add-button" class="button button-primary desktop-add" type="button"><span aria-hidden="true">＋</span> Add an entry</button>
+            </div>
+            <div class="journal-toolbar">
+              <div class="filter-group">
+                <label class="sr-only" for="month-filter">Filter by month</label>
+                <span class="filter-icon" aria-hidden="true">▦</span>
+                <select id="month-filter" aria-label="Filter by month"></select>
+                <span class="filter-divider"></span>
+                <label class="sr-only" for="category-filter">Filter by work type</label>
+                <select id="category-filter" aria-label="Filter by work type">
+                  <option value="">All work types</option>
+                  <option>Planning &amp; design</option><option>Approvals &amp; permits</option><option>Site preparation</option>
+                  <option>Foundation</option><option>Structure &amp; masonry</option><option>Electrical</option><option>Plumbing</option>
+                  <option>Waterproofing</option><option>Flooring &amp; tiles</option><option>Doors &amp; windows</option>
+                  <option>Painting &amp; finishes</option><option>Interiors</option><option>Landscaping &amp; exterior</option>
+                  <option>Materials &amp; shopping</option><option>Payments &amp; bills</option><option>Other</option>
+                </select>
+              </div>
+              <div class="toolbar-right">
+                <label class="search-wrap"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Find an entry..." aria-label="Search entries"></label>
+                <button id="export-button" class="button button-quiet" type="button"><span aria-hidden="true">↓</span><span class="export-label">Export</span></button>
+                <button id="more-button" class="button button-quiet import-button" type="button"><span aria-hidden="true">↑</span><span class="import-label">Import backup</span></button>
+                <input id="import-file" class="sr-only" type="file" accept=".json,application/json">
+              </div>
+            </div>
+            <div id="journal-list" class="journal-list"></div>
+            <div id="empty-state" class="empty-state" hidden>
+              <span class="empty-illustration" aria-hidden="true">
+                <svg viewBox="0 0 80 70" fill="none">
+                  <path d="M12 32 40 10l28 22v31H12V32Z" fill="#F0EBE1" stroke="#63745E" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="m7 33 33-26 33 26" stroke="#63745E" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M32 63V43h16v20M20 39h8v9h-8zm32 0h8v9h-8z" stroke="#63745E" stroke-width="2"/>
+                  <path d="M4 64h72" stroke="#C8BFAE" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <h3 id="empty-title">Your story starts here.</h3>
+              <p id="empty-message">From the first plan to the final paint stroke, save the little details that make this home yours.</p>
+              <button id="empty-add-button" class="button button-primary" type="button"><span aria-hidden="true">＋</span> Write your first entry</button>
+            </div>
+            <div id="cost-summary" class="cost-summary" hidden>
+              <span>Showing <strong id="cost-entry-count">0</strong> entries</span>
+              <span>Total recorded spend <strong id="cost-total">₹0</strong></span>
+            </div>
+          </section>
+          <footer class="content-footer"><span>MADE WITH CARE, FOR THE HOME YOU'RE BUILDING.</span><span>YOUR JOURNAL, YOUR STORY.</span></footer>
+        </main>
+      </div>
+    </div>
+
+    <dialog id="entry-dialog" class="entry-dialog">
+      <form id="entry-form" class="entry-form" novalidate>
+        <div class="dialog-heading">
+          <div><span class="eyebrow">A MOMENT IN YOUR HOME'S STORY</span><h2 id="dialog-title">Add a journal entry</h2></div>
+          <button id="close-dialog" class="icon-button close-dialog" type="button" aria-label="Close dialog">×</button>
+        </div>
+        <div class="form-grid">
+          <label class="field field-wide">What happened?<span class="required-mark">*</span>
+            <input id="entry-title" name="title" maxlength="120" placeholder="e.g. Foundation work — day one" required>
+          </label>
+          <label class="field">Date<span class="required-mark">*</span><input id="entry-date" name="date" type="date" required></label>
+          <label class="field">Type of work<span class="required-mark">*</span>
+            <select id="entry-category" name="category" required>
+              <option value="">Choose a work type</option>
+              <option>Planning &amp; design</option><option>Approvals &amp; permits</option><option>Site preparation</option>
+              <option>Foundation</option><option>Structure &amp; masonry</option><option>Electrical</option><option>Plumbing</option>
+              <option>Waterproofing</option><option>Flooring &amp; tiles</option><option>Doors &amp; windows</option>
+              <option>Painting &amp; finishes</option><option>Interiors</option><option>Landscaping &amp; exterior</option>
+              <option>Materials &amp; shopping</option><option>Payments &amp; bills</option><option>Other</option>
+            </select>
+          </label>
+          <label class="field">Status
+            <select id="entry-status" name="status"><option>In progress</option><option>Planned</option><option>Completed</option><option>On hold</option></select>
+          </label>
+          <label class="field">Cost so far (INR)<input id="entry-cost" name="cost" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal"></label>
+          <label class="field">Planned budget (INR)<input id="entry-budget" name="budget" type="number" min="0" step="0.01" placeholder="Optional" inputmode="decimal"></label>
+          <label class="field">Time spent<input id="entry-time" name="timeSpent" maxlength="80" placeholder="e.g. 3 days, 9 am – 5 pm"></label>
+          <label class="field">Location<input id="entry-location" name="location" maxlength="120" placeholder="e.g. Ground floor, kitchen"></label>
+          <label class="field">Vendor / contact<input id="entry-vendor" name="vendor" maxlength="120" placeholder="Name, company or phone"></label>
+          <label class="field">Shop / supplier<input id="entry-shop" name="shop" maxlength="120" placeholder="Store or material supplier"></label>
+          <label class="field field-wide">Work details &amp; updates<textarea id="entry-details" name="details" rows="3" maxlength="2000" placeholder="What was done? What changed? Add progress notes…"></textarea></label>
+          <label class="field">Alternatives considered<textarea id="entry-alternatives" name="alternatives" rows="2" maxlength="1000" placeholder="Other materials, vendors or options…"></textarea></label>
+          <label class="field">Comments &amp; next steps<textarea id="entry-comments" name="comments" rows="2" maxlength="1000" placeholder="Decisions, reminders or what happens next…"></textarea></label>
+          <label class="field field-wide">Receipt, photo or reference link<input id="entry-link" name="link" type="url" maxlength="500" placeholder="https://…"><span class="field-hint">Add a link to a shared photo, receipt or document.</span></label>
+        </div>
+        <p id="entry-error" class="form-error" role="alert" hidden></p>
+        <div class="dialog-actions">
+          <button id="cancel-dialog" class="button button-quiet" type="button">Cancel</button>
+          <button id="save-entry" class="button button-primary" type="submit">Save entry <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

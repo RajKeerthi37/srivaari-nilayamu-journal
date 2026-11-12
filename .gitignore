@@ -1,0 +1,8 @@
+# Keep construction quotations and private project documents out of the website repository.
+/Quotations/
+*.xlsx
+*.xls
+*.docx
+*.doc
+*.pdf
+

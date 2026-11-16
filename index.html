@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f6f2">
-    <meta name="description" content="A private, personal journal for tracking every detail of building your home.">
+    <meta name="description" content="A construction journal and quotation comparison for the Srivaari Nilayamu home project.">
     <title>Our Home Journal</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="quotation-data.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -70,10 +71,11 @@
           <span><strong>Srivaari Nilayamu</strong><small>OUR HOME PROJECT</small></span>
           <span class="project-menu" aria-hidden="true">···</span>
         </div>
-        <nav class="side-nav" aria-label="Journal navigation">
+        <nav class="side-nav" aria-label="Project navigation">
           <span class="nav-caption">YOUR PROJECT</span>
-          <button class="nav-link active" type="button" data-nav="journal"><span class="nav-icon" aria-hidden="true">▤</span>Journal</button>
-          <button class="nav-link" type="button" data-nav="costs"><span class="nav-icon" aria-hidden="true">₹</span>Cost tracker</button>
+          <button class="nav-link" type="button" data-nav="quotation" aria-label="Quotation" title="Quotation"><span class="nav-icon" aria-hidden="true">▥</span>Quotation</button>
+          <button class="nav-link active" type="button" data-nav="journal" aria-label="Journal" title="Journal"><span class="nav-icon" aria-hidden="true">▤</span>Journal</button>
+          <button class="nav-link" type="button" data-nav="costs" aria-label="Cost tracker" title="Cost tracker"><span class="nav-icon" aria-hidden="true">₹</span>Cost tracker</button>
         </nav>
         <div class="sidebar-bottom">
           <div class="sidebar-note">
@@ -95,7 +97,7 @@
           </div>
         </header>
 
-        <main class="content">
+        <main id="journal-view" class="content">
           <section class="welcome-row">
             <div>
               <span class="eyebrow">THE MAKING OF YOUR HOME</span>
@@ -180,6 +182,32 @@
           </section>
           <footer class="content-footer"><span>MADE WITH CARE, FOR THE HOME YOU'RE BUILDING.</span><span>YOUR JOURNAL, YOUR STORY.</span></footer>
         </main>
+        <section id="quotation-view" class="content quotation-view" aria-labelledby="quotation-title" hidden>
+          <div class="quotation-heading">
+            <div>
+              <span class="eyebrow">CONSTRUCTION COMPANY COMPARISON</span>
+              <h1 id="quotation-title">Quotations <span>at a glance.</span></h1>
+              <p class="welcome-subtitle">Compare estimated project totals and the scope each company has listed.</p>
+            </div>
+            <a class="button button-quiet quotation-download" href="Quotation%20all%20clubed.xlsx" download>↓ <span>Download workbook</span></a>
+          </div>
+          <aside class="quotation-public-note" role="note">
+            <strong>Public comparison:</strong> this workbook and its quotation details are published in this public website and repository.
+          </aside>
+          <div id="quotation-summary" class="quotation-summary" aria-label="Estimated company totals"></div>
+          <section class="quotation-panel" aria-labelledby="quotation-scope-title">
+            <div class="quotation-panel-heading">
+              <div>
+                <span class="eyebrow">PACKAGE DETAILS</span>
+                <h2 id="quotation-scope-title">Scope comparison <span id="quotation-count" class="entry-count-badge"></span></h2>
+              </div>
+              <label class="search-wrap quotation-search"><span aria-hidden="true">⌕</span><input id="quotation-search" type="search" placeholder="Search scope or materials..." aria-label="Search quotation details"></label>
+            </div>
+            <div id="quotation-list" class="quotation-list"></div>
+            <p id="quotation-empty" class="quotation-empty" hidden>No quotation details match your search.</p>
+          </section>
+          <footer class="content-footer"><span>COMPARE THE SCOPE, NOT JUST THE TOTAL.</span><span>ORIGINAL WORKBOOK AVAILABLE ABOVE.</span></footer>
+        </section>
       </div>
     </div>
 

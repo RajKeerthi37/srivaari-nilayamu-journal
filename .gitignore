@@ -1,8 +1,8 @@
-# Keep construction quotations and private project documents out of the website repository.
+# Keep private project documents out of the website repository by default.
 /Quotations/
 *.xlsx
+!/Quotation all clubed.xlsx
 *.xls
 *.docx
 *.doc
 *.pdf
-

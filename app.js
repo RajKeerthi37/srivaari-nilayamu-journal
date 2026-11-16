@@ -24,12 +24,18 @@
   const categoryFilter = $('#category-filter');
   const searchInput = $('#search-input');
   const journalList = $('#journal-list');
+  const quotationData = window.QUOTATION_DATA;
+  const quotationList = $('#quotation-list');
+  const quotationSearch = $('#quotation-search');
   const emptyState = $('#empty-state');
   const costSummary = $('#cost-summary');
   const monthFormatter = new Intl.DateTimeFormat('en-IN', { month: 'long', year: 'numeric' });
   const fullDateFormatter = new Intl.DateTimeFormat('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   const currencyFormatter = new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 });
   const statuses = ['In progress', 'Planned', 'Completed', 'On hold'];
+  if (!quotationData || !Array.isArray(quotationData.companies) || !Array.isArray(quotationData.sections)) {
+    throw new Error('Quotation comparison data is missing or invalid. Regenerate quotation-data.js from the workbook.');
+  }
   const formFields = {
     title: 'title', cost: 'cost', budget: 'budget', timeSpent: 'time',
     location: 'location', vendor: 'vendor', shop: 'shop', details: 'details',
@@ -244,6 +250,43 @@
     renderJournal();
   }
 
+  function renderQuotations() {
+    const query = quotationSearch.value.trim().toLocaleLowerCase();
+    const companies = quotationData.companies;
+    const lowestTotal = Math.min(...companies.map((company) => company.total));
+    $('#quotation-summary').innerHTML = companies.map((company, index) => {
+      const isLowest = company.total === lowestTotal;
+      const difference = company.total - lowestTotal;
+      return `<article class="quotation-total-card company-${index + 1}${isLowest ? ' quotation-total-lowest' : ''}">
+        <div class="quotation-total-top"><span class="quotation-company-name">${escapeHtml(company.name)}</span><span class="quotation-company-rate">${escapeHtml(company.rate)}</span></div>
+        <span class="quotation-total-label">${isLowest ? 'LOWEST ESTIMATED TOTAL' : 'ESTIMATED PROJECT TOTAL'}</span>
+        <strong class="quotation-total-value">${escapeHtml(formatCurrency(company.total))}</strong>
+        <span class="quotation-total-note">${isLowest ? 'Lowest estimate in this workbook' : `${escapeHtml(formatCurrency(difference))} above the lowest estimate`}</span>
+      </article>`;
+    }).join('');
+
+    const matchingSections = quotationData.sections.filter((section) => (
+      `${section.name} ${section.descriptions.join(' ')}`.toLocaleLowerCase().includes(query)
+    ));
+    $('#quotation-count').textContent = String(matchingSections.length);
+    $('#quotation-empty').hidden = matchingSections.length > 0;
+    quotationList.innerHTML = matchingSections.map((section) => `<article class="quotation-section-card">
+      <header class="quotation-section-heading">
+        <span class="eyebrow">PACKAGE SCOPE · ITEM ${String(section.row).padStart(2, '0')}</span>
+        <h3>${escapeHtml(section.name)}</h3>
+      </header>
+      <div class="quotation-company-grid">${companies.map((company, index) => {
+        const description = section.descriptions[index];
+        return `<div class="quotation-company-detail company-${index + 1}">
+          <h4>${escapeHtml(company.name)}</h4>
+          ${description
+            ? `<p>${escapeHtml(description)}</p>`
+            : '<p class="quotation-not-listed">Not listed in this workbook</p>'}
+        </div>`;
+      }).join('')}</div>
+    </article>`).join('');
+  }
+
   function showApp() {
     loginScreen.hidden = true;
     appScreen.hidden = false;
@@ -428,15 +471,23 @@
 
   for (const button of document.querySelectorAll('[data-nav]')) {
     button.addEventListener('click', () => {
-      costMode = button.dataset.nav === 'costs';
+      const selectedView = button.dataset.nav;
+      const quotationMode = selectedView === 'quotation';
+      costMode = selectedView === 'costs';
       for (const navButton of document.querySelectorAll('[data-nav]')) navButton.classList.toggle('active', navButton === button);
-      render();
+      $('#journal-view').hidden = quotationMode;
+      $('#quotation-view').hidden = !quotationMode;
+      $('#top-add-button').hidden = quotationMode;
+      if (quotationMode) renderQuotations();
+      else render();
       $('#summary-spent-note').textContent = costMode
         ? (monthFilter.value ? `Total in ${monthName(`${monthFilter.value}-01`)}` : 'Across all recorded months')
         : (monthFilter.value ? `Recorded in ${monthName(`${monthFilter.value}-01`)}` : 'Across all recorded months');
       if (costMode) costSummary.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
   }
+
+  quotationSearch.addEventListener('input', renderQuotations);
 
   if (sessionStorage.getItem(SESSION_KEY) === 'yes') showApp();
 })();

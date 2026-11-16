@@ -28,13 +28,15 @@ To change the starter values, edit `LOGIN_USERNAME` and `LOGIN_PASSWORD` near th
 
 The site is already published at **<https://rajkeerthi37.github.io/srivaari-nilayamu-journal/>** from the `main` branch at the repository root.
 
-The source repository is public because GitHub Pages on this GitHub Free account requires a public repository. Anyone can view or copy the website source. Only the five website files (`index.html`, `styles.css`, `app.js`, `README.md` and `.gitignore`) were uploaded.
+The source repository and website are public. The **Quotation** section compares the published workbook's estimated totals and scope from three companies; the original workbook can also be downloaded from the site. Anyone can view the workbook, the extracted quotation details and the website source. Do not upload other private project documents, receipts or secrets.
 
 To publish changes using GitHub's website:
 
 1. Open <https://github.com/RajKeerthi37/srivaari-nilayamu-journal>.
 2. Choose **Add file → Upload files**.
-3. Upload only the website files you want to update, then commit the change to `main`.
+3. Upload the website files you want to update. To update quotation details, upload both `Quotation all clubed.xlsx` and the regenerated `quotation-data.js`, then commit the changes to `main`.
 4. GitHub Pages rebuilds automatically. The site usually updates within a few minutes.
 
-For command-line changes, clone the repository or update this local copy, authenticate Git with your GitHub account, then commit and push changes to `main`. The local project folder also contains quotation and spreadsheet documents. The `.gitignore` excludes the `Quotations` folder and common quotation document formats; review `git status` before committing or pushing, and do not upload private project documents, receipts or secrets.
+To regenerate the static comparison data after editing the workbook, install `openpyxl` for Python and run `python generate_quotation_data.py`. The script reads only `Quotation all clubed.xlsx` and writes `quotation-data.js`.
+
+For command-line changes, clone the repository or update this local copy, authenticate Git with your GitHub account, then commit and push changes to `main`. The `.gitignore` excludes the `Quotations` folder and other spreadsheets/documents; only the named comparison workbook is allowed through. Review `git status` before committing.
